@@ -16,3 +16,7 @@
 *.swp
 ~*
 *.swo
+
+# Executables
+main
+input_gen
