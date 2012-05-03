@@ -30,6 +30,10 @@ inline double sample_internal_v0() {
     return uniform();
 }
 
+inline double sample_gamma() {
+	return uniform();
+}
+
 // What's the value for an item?
 inline double sample_value() {
     return uniform();
@@ -56,7 +60,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < players; ++i) {
         int count = get_random(mean, std);
         // Total number of items for player i, and the internal v0
-        printf("%d %f", count, sample_internal_v0());
+        printf("%d %f", count, sample_gamma());
 
         for (int j = 0; j < count; ++j) {
             double value = sample_value();
