@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
         for (int j = 0; j < count; ++j) {
             double value = sample_value();
             double revenue = sample_revenue(value);
-            printf(" %f %f", value, revenue);
+            printf(" %f %f", revenue, value);
         }
 
         printf("\n");
