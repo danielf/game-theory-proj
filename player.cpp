@@ -9,6 +9,14 @@ using std::reverse;
 using std::pair;
 using std::make_pair;
 
+player::player(istream& in) : _dirty(true) {
+	int N;
+	in >> N >> _gamma;
+	_products.resize(N);
+	for (int i = 0; i < N; i++)
+		in >> _products[i].first >> _products[i].second;
+}
+
 player::player(const vector<product>& products, double gamma) : 
 	             _products(products), _gamma(gamma), _dirty(true) {
 	sort(_products.begin(), _products.end());
