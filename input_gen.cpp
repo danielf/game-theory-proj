@@ -1,6 +1,8 @@
+#include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <cmath>
-
+#include <ctime>
 using namespace std;
 
 void print_usage(char* invoke) {
@@ -20,9 +22,14 @@ int get_random(double mean, double std) {
     return max((int)ceil(sqrt(-2*log(u1))*cos(2*M_PI*u2)*std + mean), 1);
 }
 
+double get_normal(double mean, double std) {
+    double u1 = uniform();
+    double u2 = uniform();
+    return sqrt(-2*log(u1))*cos(2*M_PI*u2)*std + mean;
+}
 // Outer v0
-inline double sample_v0() {
-    return uniform();    
+inline double sample_v0(double factor) {
+    return factor*uniform();
 }
 
 // Inner v0
@@ -31,17 +38,21 @@ inline double sample_internal_v0() {
 }
 
 inline double sample_gamma() {
-	return uniform();
+	return 1.;
+//	return uniform();
 }
 
 // What's the value for an item?
-inline double sample_value() {
-    return uniform();
+inline double sample_value(double factor) {
+    return factor*(uniform() + 1.);
 }
 
 // Given value v, what's the revenue?
-inline double sample_revenue(double value) {
-    return uniform();
+inline double sample_revenue(int players, double value) {
+//	bool side = uniform() > .5;
+	return (uniform()>.5)?1.:1./value;
+//	return uniform()*(2*players - 1) + 1;
+//    return max(get_normal(2-value, 1), 0.);
 }
 
 int main(int argc, char* argv[]) {
@@ -53,9 +64,10 @@ int main(int argc, char* argv[]) {
     int players = atoi(argv[1]);
     double mean = atof(argv[2]);
     double std = atof(argv[3]);
+	srand(time(NULL));
     
     // The total number of players and v0
-    printf("%d %f\n", players, sample_v0());
+    printf("%d %f\n", players, sample_v0(0));
 
     for (int i = 0; i < players; ++i) {
         int count = get_random(mean, std);
@@ -63,14 +75,13 @@ int main(int argc, char* argv[]) {
         printf("%d %f", count, sample_gamma());
 
         for (int j = 0; j < count; ++j) {
-            double value = sample_value();
-            double revenue = sample_revenue(value);
+            double value = sample_value(players);
+            double revenue = sample_revenue(players, value);
             printf(" %f %f", revenue, value);
         }
 
         printf("\n");
     }
-
     return 0;
 }
 

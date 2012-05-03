@@ -15,25 +15,31 @@ player::player(istream& in) : _dirty(true) {
 	_products.resize(N);
 	for (int i = 0; i < N; i++)
 		in >> _products[i].first >> _products[i].second;
+	sort(_products.begin(), _products.end());
+	reverse(_products.begin(), _products.end());
+	_dirty_value = true;
 }
 
 player::player(const vector<product>& products, double gamma) : 
 	             _products(products), _gamma(gamma), _dirty(true) {
 	sort(_products.begin(), _products.end());
 	reverse(_products.begin(), _products.end());
+	_dirty_value = true;
 }
 
 void player::set_v0(double v0) {
 	_v0 = v0;
 	_dirty = true;
+	_dirty_value = true;
 }
 
 double player::get_value() {
-	if (!_dirty) return _value;
+	if (!_dirty_value && !_dirty) return _value;
 	int N = solve().second;
 	double ans = 0;
-	while (N--)
-		ans += _products[N].second;
+	for (int n = 0; n < N; n++)
+		ans += _products[n].second;
+	_dirty_value = false;
 	return _value = pow(ans, _gamma);
 }
 
@@ -48,10 +54,11 @@ pair<double, int> player::solve() {
 	for (int i = 0; i < (int)_products.size(); ++i) {
 		num += _products[i].first*_products[i].second;
 		denom += _products[i].second;
-		ans = max(ans, make_pair(pow(num, _gamma-1)/(_v0 + pow(denom, _gamma)), i+1));
+		ans = max(ans, make_pair((pow(denom, _gamma-1)*num)/(_v0 + pow(denom, _gamma)), i+1));
 	}
 	_optimal = ans;
 	_dirty = false;
+	_dirty_value = true;
 	return ans;
 }
 

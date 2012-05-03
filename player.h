@@ -29,6 +29,7 @@ class player {
 		pair<double, int> _optimal;
 		// If _dirty == true, then _optimal is invalid
 		bool _dirty;
+		bool _dirty_value;
 };
 
 // Compute the no-purchase option for "current" (0 <= current < players.size())
