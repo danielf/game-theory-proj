@@ -29,3 +29,6 @@ harmness.exe
 *.png
 stats_harmness
 convergence.exe
+
+
+fit.log
