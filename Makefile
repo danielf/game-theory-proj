@@ -15,5 +15,7 @@ input_gen: input_gen.cpp
 convergence: convergence.cpp player.o
 	$(CC) $(CFLAGS) player.o convergence.cpp -o convergence
 
+convergence_sim: convergence_sim.cpp player.o
+	$(CC) $(CFLAGS) player.o convergence_sim.cpp -o convergence_sim
 clean:
 	rm -rf *.o
