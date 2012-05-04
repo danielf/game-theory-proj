@@ -20,6 +20,7 @@
 # Executables
 main
 input_gen
+convergence
 main.exe
 input_gen.exe
 harmness
@@ -27,3 +28,4 @@ harmness.exe
 
 *.png
 stats_harmness
+convergence.exe
