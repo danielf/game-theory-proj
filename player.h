@@ -17,6 +17,7 @@ class player {
 		void set_v0(double v0);
 		// Get V_g(O)^gamma
 		double get_value();
+		double get_revenue();
 		vector<product>& get_products();
 		// Solve returns an int, the number of objects in the optimal set
 		//    and the value of the optimal

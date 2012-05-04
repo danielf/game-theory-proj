@@ -33,6 +33,16 @@ void player::set_v0(double v0) {
 	_dirty_value = true;
 }
 
+double player::get_revenue() {
+	int N = _optimal.second;
+	double denominator = get_value() + _v0;
+	double numerator = 0.;
+	for (int n = 0; n < N; n++)
+		numerator += _products[n].first*_products[n].second;
+	numerator *= pow(get_value(), (_gamma-1)/_gamma);
+	return numerator/denominator;
+}
+
 double player::get_value() {
 	if (!_dirty_value) return _value;
 	int N = _optimal.second;
