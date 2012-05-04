@@ -34,8 +34,8 @@ void player::set_v0(double v0) {
 }
 
 double player::get_value() {
-	if (!_dirty_value && !_dirty) return _value;
-	int N = solve().second;
+	if (!_dirty_value) return _value;
+	int N = _optimal.second;
 	double ans = 0;
 	for (int n = 0; n < N; n++)
 		ans += _products[n].second;
@@ -58,7 +58,6 @@ pair<double, int> player::solve() {
 	}
 	_optimal = ans;
 	_dirty = false;
-	_dirty_value = true;
 	return ans;
 }
 
