@@ -33,6 +33,10 @@ void player::set_v0(double v0) {
 	_dirty_value = true;
 }
 
+double player::get_v0() {
+	return _v0;
+}
+
 double player::get_revenue() {
 	int N = _optimal.second;
 	double denominator = get_value() + _v0;

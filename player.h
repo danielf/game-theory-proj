@@ -15,6 +15,8 @@ class player {
 		player(istream &in);
 		player(const vector<product>& products, double gamma);
 		void set_v0(double v0);
+        // Get raw v0
+        double get_v0();
 		// Get V_g(O)^gamma
 		double get_value();
 		double get_revenue();
